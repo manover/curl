@@ -22,7 +22,7 @@ Build-Depends: debhelper (>= 9.20141010~),
  openssh-server <!nocheck>,
  python:native,
  quilt,
- stunnel4 <!nocheck>,
+ stunnel4:native <!nocheck>,
  zlib1g-dev
 Build-Conflicts: autoconf2.13, automake1.4
 Standards-Version: 3.9.8

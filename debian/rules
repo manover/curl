@@ -8,6 +8,9 @@ export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 # enable all hardening options (see #763372)
 export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+# autoset arch in default case
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_GNU_TYPE ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 
 CONFIGURE_ARGS = -- --disable-dependency-tracking		\
 	--disable-symbol-hiding --enable-versioned-symbols	\
@@ -16,7 +19,7 @@ CONFIGURE_ARGS = -- --disable-dependency-tracking		\
 	--with-zsh-functions-dir=/usr/share/zsh/vendor-completions
 
 %:
-	dh $@
+	dh $@ --parallel
 
 override_dh_auto_configure:
 	mkdir -p debian/build debian/build-gnutls debian/build-nss
@@ -69,6 +72,12 @@ override_dh_install:
 		DESTDIR=$(shell pwd)/debian/tmp-gnutls install
 	${MAKE} -C debian/build-nss				\
 		DESTDIR=$(shell pwd)/debian/tmp-nss install
+	for dir in tmp tmp-gnutls tmp-nss; do \
+	    mkdir -p debian/$$dir/usr/include/${DEB_HOST_MULTIARCH}/curl; \
+	    mv debian/$$dir/usr/include/curl/curlbuild.h \
+			debian/$$dir/usr/include/${DEB_HOST_MULTIARCH}/curl; \
+		mv debian/$$dir/usr/bin/curl-config debian/$$dir/usr/bin/${DEB_HOST_GNU_TYPE}-curl-config; \
+	done
 	dh_install -pcurl -plibcurl4-doc			\
 		-plibcurl3-gnutls -plibcurl4-gnutls-dev		\
 		--sourcedir=debian/tmp-gnutls

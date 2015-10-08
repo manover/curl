@@ -1,3 +1,4 @@
+00_multiarch-includes.patch
 01_runtests_gdb.patch
 02_art_http_scripting.patch
 03_keep_symbols_compat.patch
