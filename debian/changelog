@@ -43,6 +43,12 @@ curl (7.50.1-2) unstable; urgency=medium
 
  -- Alessandro Ghedini <ghedo@debian.org>  Sun, 28 Aug 2016 14:48:05 +0100
 
+curl (7.50.1-1.1) unstable; urgency=medium
+
+  * Integrate local changes
+
+ -- Denis Bychkov <manover@gmail.com>  Wed, 03 Aug 2016 10:39:11 -0400
+
 curl (7.50.1-1) unstable; urgency=medium
 
   * New upstream release (Closes: #827900)
@@ -96,6 +102,29 @@ curl (7.45.0-1) unstable; urgency=medium
   * Drop 08_spelling.patch (merged upstream)
 
  -- Alessandro Ghedini <ghedo@debian.org>  Wed, 07 Oct 2015 12:59:03 +0200
+
+curl (7.44.0-2.3) unstable; urgency=medium
+
+  * Make curl-config support multiarch include path
+
+ -- Denis Bychkov <manover@gmail.com>  Mon, 14 Sep 2015 01:44:42 -0400
+
+curl (7.44.0-2.2) unstable; urgency=medium
+
+  * Use a wrapper for curl-config instead of a symlink
+
+ -- Denis Bychkov <manover@gmail.com>  Sat, 12 Sep 2015 23:30:37 -0400
+
+curl (7.44.0-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Rename curl-config to {triplet}-curl-config
+  * Add a symlink to the new config name only for the host arch
+  * Move curlbuild.h to the arch-specific directory
+  * Fix headers that use relative path for curlbuild.h include
+  * Add arch-specific directory GCC include flag, when appropriate
+
+ -- Denis Bychkov <manover@gmail.com>  Sat, 12 Sep 2015 14:39:36 -0400
 
 curl (7.44.0-2) unstable; urgency=medium
 

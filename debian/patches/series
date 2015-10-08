@@ -1,3 +1,4 @@
+00_multiarch-includes.patch
 01_runtests_gdb.patch
 03_keep_symbols_compat.patch
 04_workaround_as_needed_bug.patch

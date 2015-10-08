@@ -1,4 +1,5 @@
-usr/bin/curl-config
+usr/bin/*-curl-config
+../curl-config usr/bin/
 usr/lib/*/libcurl.a
 usr/lib/*/libcurl.la
 usr/lib/*/libcurl.so
