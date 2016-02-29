@@ -1,10 +1,10 @@
 #!/bin/sh
 
-CURLCONFIG="/usr/bin/$(dpkg-architecture -qDEB_HOST_GNU_TYPE)-curl-config"
+CURL_CONFIG="/usr/bin/$(dpkg-architecture -qDEB_HOST_GNU_TYPE)-curl-config"
 
-if [ -x "$CURLCONFIG" ]; then
-	exec "$CURLCONFIG" "$@"
+if [ -x "$CURL_CONFIG" ]; then
+	exec "$CURL_CONFIG" "$@"
 else
-	echo "$CURLCONFIG not found, try installing the package for $(dpkg-architecture -qDEB_HOST_ARCH) architecture"
+	echo "$CURL_CONFIG not found, try installing the package for $(dpkg-architecture -qDEB_HOST_ARCH) architecture" >&2
 	exit 1
 fi
