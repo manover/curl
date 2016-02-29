@@ -45,7 +45,7 @@ curl (7.50.1-2) unstable; urgency=medium
 
 curl (7.50.1-1.1) unstable; urgency=medium
 
-  * Integrate local changes
+  * Rebase on debian/7.50.1-1
 
  -- Denis Bychkov <manover@gmail.com>  Wed, 03 Aug 2016 10:39:11 -0400
 

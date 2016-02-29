@@ -1,22 +1,6 @@
---- a/libcurl.pc.in
-+++ b/libcurl.pc.in
-@@ -29,6 +29,7 @@
- includedir=@includedir@
- supported_protocols="@SUPPORT_PROTOCOLS@"
- supported_features="@SUPPORT_FEATURES@"
-+host_prefix=@DEB_HOST_MULTIARCH@
-
- Name: libcurl
- URL: http://curl.haxx.se/
-@@ -36,4 +37,4 @@
- Version: @CURLVERSION@
- Libs: -L${libdir} -lcurl
- Libs.private: @LIBCURL_LIBS@
--Cflags: -I${includedir} @CPPFLAG_CURL_STATICLIB@
-+Cflags: -I${includedir} -I${includedir}/${host_prefix} @CPPFLAG_CURL_STATICLIB@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -175,6 +175,11 @@
+@@ -177,6 +177,11 @@ dnl
  INITIAL_LDFLAGS=$LDFLAGS
  INITIAL_LIBS=$LIBS
 
@@ -28,17 +12,6 @@
  dnl
  dnl Detect the canonical host and target build environment
  dnl
---- a/include/curl/curl.h
-+++ b/include/curl/curl.h
-@@ -31,7 +31,7 @@
-  */
-
- #include "curlver.h"         /* libcurl version defines   */
--#include "curlbuild.h"       /* libcurl build definitions */
-+#include <curl/curlbuild.h>  /* libcurl build definitions */
- #include "curlrules.h"       /* libcurl rules enforcement */
-
- /*
 --- a/curl-config.in
 +++ b/curl-config.in
 @@ -24,6 +24,7 @@
@@ -49,7 +22,7 @@
  cppflag_curl_staticlib=@CPPFLAG_CURL_STATICLIB@
 
  usage()
-@@ -130,9 +131,9 @@
+@@ -130,9 +131,9 @@ while test $# -gt 0; do
 
      --cflags)
          if test "X$cppflag_curl_staticlib" = "X-DCURL_STATICLIB"; then
@@ -61,3 +34,30 @@
          fi
          if test "X@includedir@" = "X/usr/include"; then
            echo "$CPPFLAG_CURL_STATICLIB"
+--- a/include/curl/curl.h
++++ b/include/curl/curl.h
+@@ -31,7 +31,7 @@
+  */
+
+ #include "curlver.h"         /* libcurl version defines   */
+-#include "curlbuild.h"       /* libcurl build definitions */
++#include <curl/curlbuild.h>  /* libcurl build definitions */
+ #include "curlrules.h"       /* libcurl rules enforcement */
+
+ /*
+--- a/libcurl.pc.in
++++ b/libcurl.pc.in
+@@ -29,6 +29,7 @@ libdir=@libdir@
+ includedir=@includedir@
+ supported_protocols="@SUPPORT_PROTOCOLS@"
+ supported_features="@SUPPORT_FEATURES@"
++host_prefix=@DEB_HOST_MULTIARCH@
+
+ Name: libcurl
+ URL: https://curl.haxx.se/
+@@ -36,4 +37,4 @@ Description: Library to transfer files w
+ Version: @CURLVERSION@
+ Libs: -L${libdir} -lcurl
+ Libs.private: @LIBCURL_LIBS@
+-Cflags: -I${includedir} @CPPFLAG_CURL_STATICLIB@
++Cflags: -I${includedir} -I${includedir}/${host_prefix} @CPPFLAG_CURL_STATICLIB@
